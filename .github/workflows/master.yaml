@@ -25,5 +25,16 @@ jobs:
         run: flutter build web --release
 
       - name: Deploy
+        env:
+          TOKEN: ${{secrets.TOKEN_SITE}}
         run: |
-          cp -r build/web docs/
+          cd build/web
+          git init
+          git config --global user.email dorivanfernandes@outlook.com
+          git config --global user.name dorivanfernandes
+          git status
+          git remote add origin git@github.com:dorivanfernandes/dorivanfernandes.github.io.git
+          git checkout -b master
+          git add --all
+          git commit -m "update"
+          git push origin master -f
